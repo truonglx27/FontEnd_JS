@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./index.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="row">
+      <div class="form-group m-4 col-3">
+        <label for="classFilter">Class Name</label>
+        <select class="form-control" id="classFilter" onchange="onFilter()">
+          <option value="all" selected>All</option>
+          <option value=".net">.Net</option>
+          <option value="angular">Angular</option>
+          <option value="java">Java</option>
+          <option value="test">test</option>
+        </select>
+      </div>
+
+      <div class="form-group col-3 m-4">
+        <label for="">Name</label>
+        <select class="form-control" id="studentList"> </select>
+      </div>
+    </div>
+
+    <!-- <div class="row ml-4">
+        <ul class="list-group col-4" id="studentList">
+          <li class="list-group-item">tran van a</li>
+        </ul>
+      </div> -->
+
+    <script>
+      var students = [
+        { id: 1, name: "tran van a", className: ".net" },
+        { id: 2, name: "tran van b", className: ".net" },
+        { id: 3, name: "tran van c", className: "angular" },
+        { id: 4, name: "tran van d", className: "angular" },
+        { id: 5, name: "tran van e", className: "java" },
+        { id: 6, name: "tran van f", className: "java" },
+        { id: 7, name: "tran van g", className: "java" },
+        { id: 8, name: "tran van h", className: "test" },
+        { id: 9, name: "tran van i", className: "test" },
+        { id: 10, name: "tran van j", className: "test" }
+      ];
+      var classFilter = document.getElementById("classFilter");
+      var studentList = document.getElementById("studentList");
+
+      render(studentList, students);
+
+      function render(container, items) {
+        var htmlItems = items.map(item => {
+          return '<option value="">' + item.name + "</option>";
+        });
+        var html = htmlItems.join("");
+        container.innerHTML = html;
+      }
+
+      function onFilter() {
+        var className = classFilter.value;
+
+        if (className === "all") {
+          render(studentList, students);
+        } else {
+          var studentFilter = students.filter(item => {
+            return item.className === className;
+          });
+
+          render(studentList, studentFilter);
+        }
+      }
+    </script>
+  </body>
+</html>
