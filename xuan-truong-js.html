@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <script src="./index.js"></script>
-    <link rel="stylesheet" href="./index.css" />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -17,11 +15,7 @@
       <div class="form-group m-4 col-3">
         <label for="classFilter">Class Name</label>
         <select class="form-control" id="classFilter" onchange="onFilter()">
-          <option value="all" selected>All</option>
-          <option value=".net">.Net</option>
-          <option value="angular">Angular</option>
-          <option value="java">Java</option>
-          <option value="test">test</option>
+          <option value="all"> All</option>
         </select>
       </div>
 
@@ -30,12 +24,6 @@
         <select class="form-control" id="studentList"> </select>
       </div>
     </div>
-
-    <!-- <div class="row ml-4">
-        <ul class="list-group col-4" id="studentList">
-          <li class="list-group-item">tran van a</li>
-        </ul>
-      </div> -->
 
     <script>
       var students = [
@@ -53,28 +41,37 @@
       var classFilter = document.getElementById("classFilter");
       var studentList = document.getElementById("studentList");
 
-      render(studentList, students);
+      var listClass = [];
+      students.forEach(student => {
+        if (listClass.indexOf(student.className) === -1)
+          listClass.push(student.className);
+      });
 
+      renderClass(classFilter, listClass);
+      render(studentList,students);
+
+      function renderClass(container, items) {
+        var htmlItems = items.map(item => {
+          return (container.innerHTML +=
+            '<option value="' + item + '">' + item + "</option>");
+        });
+      }
       function render(container, items) {
         var htmlItems = items.map(item => {
-          return '<option value="">' + item.name + "</option>";
+          return (container.innerHTML +=
+            '<option value="' + item.id + '">' + item.name + "</option>");
         });
-        var html = htmlItems.join("");
-        container.innerHTML = html;
       }
 
       function onFilter() {
-        var className = classFilter.value;
-
-        if (className === "all") {
-          render(studentList, students);
-        } else {
-          var studentFilter = students.filter(item => {
-            return item.className === className;
-          });
-
-          render(studentList, studentFilter);
-        }
+        studentList.innerHTML='';
+        studentClass = classFilter.value;
+        studentClass ==='all' ? render(studentList,students):
+        students.forEach(student => {
+          if (student.className === studentClass) {
+            studentList.innerHTML += '<option value="">' + student.name + "</option>";
+          }
+        });
       }
     </script>
   </body>
